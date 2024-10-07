@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+    font-family: "Yekan Bakh VF";
+    src: url("../fonts/YekanBakh/YekanBakh-VF.ttf");
+    font-display: fallback;
+}
+body{
+    font-family: "Yekan Bakh VF", tahoma;
+    font-size: 1.4rem;
+    line-height: 1.8;
+    unicode-bidi: embed;
+    background-color: #E8E8E8 ;
+    color: #353535;
+    font-variation-settings: "wght" 300;
+}
+
