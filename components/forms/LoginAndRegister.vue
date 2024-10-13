@@ -8,12 +8,6 @@
         class="text-xl font-semibold lg:text-3xl">
         وارد حساب کاربری خود شوید
       </h1>
-      <div class="my-2 text-center text-sm">
-        حساب کاربری ندارید؟<a
-          class="cursor-pointer font-semibold text-primary">
-          ثبت نام کنید </a
-        >.
-      </div>
       <Form
         @submit="submit"
         className="mt-6 w-full">

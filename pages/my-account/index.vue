@@ -5,6 +5,6 @@
 </template>
 <script setup lang="ts">
 useSeoMeta({
-  title: `My Account`,
+  title: `حساب کاربری من`,
 });
 </script>
