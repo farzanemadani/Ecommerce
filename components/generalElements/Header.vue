@@ -14,7 +14,7 @@
       </div>
       <div class="flex gap-3">
         <SignInLink />
-        <Icon icon="mdiCart" />
+        <CartLink/>
       </div>
     </div>
   </header>
