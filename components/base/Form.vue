@@ -1,7 +1,8 @@
 <template>
   <form
     :class="className"
-    @submit.prevent="handleSubmit">
+    @submit.prevent="handleSubmit"
+    @keydown.enter="handleSubmit">
     <slot></slot>
   </form>
 </template>
@@ -10,7 +11,8 @@ const { className } = defineProps({
   className: { type: String },
 });
 const emit = defineEmits(['submit']);
-const handleSubmit = () => {
+const handleSubmit = (event: Event) => {
+  event.preventDefault();
   emit('submit');
 };
 </script>

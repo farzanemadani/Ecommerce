@@ -17,14 +17,15 @@
         { 'border-red': hasError },
       ]"
       class="flex"
-      ref="wrapper">
+      ref="wrapper"
+      @click="focus">
       <template v-if="$slots.preIcon">
         <slot name="preIcon"></slot>
       </template>
       <input
+        @input="$emit('validate')"
         :maxlength="maxlength"
-        :value="modelValue"
-        @input="update($event)"
+        v-model="model"
         class="focus:outline-0"
         :class="['w-full', textAlign]"
         :id="name"
@@ -32,9 +33,8 @@
         :autocomplete="
           autocomplete ? 'on' : 'off'
         "
-        :type="type"
-        @focus="addFocusClass"
-        @blur="removeFocusClass" />
+        ref="input"
+        :type="type" />
       <template v-if="$slots.postIcon">
         <slot name="postIcon"></slot>
       </template>
@@ -48,6 +48,7 @@
 </template>
 
 <script setup lang="ts">
+const model = defineModel();
 const {
   name,
   type,
@@ -59,28 +60,25 @@ const {
   dir,
   labelClass,
   errorMessage,
-  modelValue,
   height,
   maxlength,
 } = defineProps({
-  name: { type: String },
-  inputClass: { type: String },
-  type: { type: String },
-  placeholder: { type: String },
-  autocomplete: { type: Boolean },
-  required: { type: Boolean },
-  fontSize: { type: String },
-  dir: { type: String },
-  labelClass: { type: String },
-  modelValue: {
-    type: [Number, String],
-    default: '',
-  },
-  errorMessage: { type: String },
-  height: { type: String },
-  maxlength: { type: String },
+  name: { type: String, default: '' },
+  inputClass: { type: String, default: '' },
+  type: { type: String, default: '' },
+  placeholder: { type: String, default: '' },
+  autocomplete: { type: Boolean, default: false },
+  required: { type: Boolean, default: false },
+  fontSize: { type: String, default: '' },
+  dir: { type: String, default: '' },
+  labelClass: { type: String, default: '' },
+  errorMessage: { type: String, default: '' },
+  height: { type: String, default: '' },
+  maxlength: { type: String, default: '' },
 });
 
+const emit = defineEmits(['validate']);
+const input = ref<HTMLInputElement | null>(null);
 const hasError = computed<boolean>(() => {
   return errorMessage ? true : false;
 });
@@ -99,33 +97,45 @@ const inputWrapper = computed<string>(() => {
 
 const textAlign = computed<string>(() => {
   return dir === 'ltr'
-    ? 'text-left'
-    : 'text-right';
+    ? 'ltr'
+    : 'rtl';
 });
-
-const emit = defineEmits(['update:modelValue']);
-const update = (event: Event) => {
-  const newValue = (
-    event.target as HTMLInputElement
-  ).value;
-  emit('update:modelValue', newValue);
-};
 
 const wrapper = ref<HTMLElement | null>(null);
 
-const addFocusClass = () => {
+const focus = () => {
   wrapper.value?.classList.add(
     'border-solid',
     'border-2',
     'border-primary',
   );
+  input.value?.focus();
+};
+const handleClickOutside = (event: MouseEvent) => {
+  if (wrapper.value && !wrapper.value.contains(event.target as Node)) {
+    wrapper.value.classList.remove(
+      'border-solid',
+      'border-2',
+      'border-primary',
+    );
+  }
 };
 
-const removeFocusClass = () => {
-  wrapper.value?.classList.remove(
-    'border-solid',
-    'border-2',
-    'border-primary',
-  );
-};
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
+
+defineExpose({ focus });
 </script>
+<style scoped>
+.ltr {
+  direction: ltr;
+}
+.rtl {
+  direction: rtl;
+}
+</style>
