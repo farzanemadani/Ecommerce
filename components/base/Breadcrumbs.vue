@@ -22,7 +22,7 @@ interface Breadcrumbs {
   name: string;
   url: string;
 }
-const { items, className } = defineProps<{
+const { items } = defineProps<{
   items: Breadcrumbs[];
 }>();
 </script>

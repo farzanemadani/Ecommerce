@@ -1,5 +1,6 @@
 <template>
   <HeroBanner />
+  <ProductList />
 </template>
 <script setup lang="ts">
 const {
