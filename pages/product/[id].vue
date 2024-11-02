@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Breadcrumbs :items="items" />
+    <!-- <Breadcrumbs :items="items" /> -->
     <div class="grid grid-cols-2">
       <div>
         <NuxtImg :src="data?.image" />

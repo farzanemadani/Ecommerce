@@ -3,7 +3,7 @@
     <div
       class="flex items-center gap-2 text-lg font-bold">
       <img
-        :src="faviconUrl"
+        :src="logo"
         alt="Logo"
         width="32"
         height="32" />
@@ -13,5 +13,5 @@
 </template>
 <script setup lang="ts">
 const { siteName } = useAppConfig();
-const faviconUrl = '/logo.svg';
+const logo = '/logo.svg';
 </script>
