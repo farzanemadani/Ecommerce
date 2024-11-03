@@ -43,15 +43,30 @@ const emit = defineEmits(['login']);
 const inputRef = ref<HTMLInputElement | null>(
   null,
 );
+const config = useRuntimeConfig();
 
-const submit = () => {
+const submit = async () => {
   const phone = phoneNumber.value.toString();
   const errorMessage = 'شماره موبایل معتبر نیست';
 
-  if (
-    validate(phone, isPhoneNumber, errorMessage)
-  ) {
-    emit('login', phoneNumber.value);
+  if (validate(phone, isPhoneNumber, errorMessage)) {
+    try {
+      const data = await $fetch(
+        `${config.public.apiBase}/auth/Send_Otp`,
+        {
+          method: 'POST',
+          body: { phone: phoneNumber.value },
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      console.log('OTP sent successfully:', data);
+      emit('login', phoneNumber.value);
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+    }
   } else {
     return;
   }

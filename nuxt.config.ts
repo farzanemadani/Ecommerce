@@ -43,4 +43,9 @@ export default defineNuxtConfig({
     }
   },
   modules: ['nuxt-mdi', '@nuxt/image'],
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://62.106.95.16/api'
+    }
+  },
 })
