@@ -28,7 +28,8 @@
   </div>
 </template>
 <script setup lang="ts">
-const OTP_LENGTH = 4;
+const authStore = useAuthStore();
+const OTP_LENGTH = 5;
 const otpValue = ref(
   Array.from({ length: OTP_LENGTH }, () => ''),
 );
@@ -37,19 +38,20 @@ const inputRefs = ref<
 >([]);
 const emit = defineEmits(['back'])
 
-const handleInputElsInput = (
+const handleInputElsInput = async (
   event: Event,
   index: number,
 ) => {
-  const target = event.target as HTMLInputElement;
-  otpValue.value[index] = target.value;
-  if (target.value && index < OTP_LENGTH - 1) {
-    inputRefs.value[index + 1]?.focus();
+  try{
+    const target = event.target as HTMLInputElement;
+    otpValue.value[index] = target.value;
+    if (target.value && index < OTP_LENGTH - 1) {
+      inputRefs.value[index + 1]?.focus();
+    }
+    const response = await authStore.otpLogin(otpValue.value.join(''))
+  }catch(err){
+    console.log('err',err)
   }
-  console.log(
-    '🚀 ~ handleInputElsInput ~ otpValue.value:',
-    otpValue.value,
-  );
 };
 onMounted(() => {
   if (inputRefs.value[0]) {

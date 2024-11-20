@@ -42,7 +42,7 @@ export default defineNuxtConfig({
       ]
     }
   },
-  modules: ['nuxt-mdi', '@nuxt/image'],
+  modules: ['nuxt-mdi', '@nuxt/image', '@pinia/nuxt'],
   runtimeConfig: {
     public: {
       apiBase: 'http://62.106.95.16/api'

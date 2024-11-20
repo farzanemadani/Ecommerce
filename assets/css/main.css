@@ -15,4 +15,10 @@ body{
     color: #353535;
     font-variation-settings: "wght" 300;
 }
+.ltr {
+    direction: ltr;
+}
+.rtl {
+    direction: rtl;
+}
 

@@ -1,6 +1,6 @@
 <template>
   <MdiIcon
-    :icon="props.icon"
+    :icon="icon"
     preserveAspectRatio="xMidYMid meet" />
 </template>
 
@@ -8,5 +8,5 @@
 interface Props {
   icon: string;
 }
-const props = defineProps<Props>();
+const { icon } = defineProps<Props>();
 </script>

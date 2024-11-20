@@ -131,11 +131,3 @@ onUnmounted(() => {
 
 defineExpose({ focus });
 </script>
-<style scoped>
-.ltr {
-  direction: ltr;
-}
-.rtl {
-  direction: rtl;
-}
-</style>

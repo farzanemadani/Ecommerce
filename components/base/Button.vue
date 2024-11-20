@@ -4,7 +4,8 @@
     @click.stop="emitClickEvent"
     @mouseover="mouseoverEvent"
     @mouseleave="mouseleaveEvent">
-    <slot></slot>
+    <spinner v-if="loading" className="h-4 w-4 border-2 m-auto" />
+    <slot v-else></slot>
   </button>
 </template>
 
@@ -25,6 +26,10 @@ const { className, disabled } = defineProps({
     type: Boolean,
     default: false,
   },
+  loading:{
+    type:Boolean,
+    default: false,
+  }
 });
 
 const buttonClasses = computed<string>(() => {
